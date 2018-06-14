@@ -8,7 +8,11 @@ int LIS(vector<int>& LISTbl);
 void splitStr(string s, vector<int>& buf, char c);
 int main()
 {
-
+	string stmp;
+	cin >> stmp;
+	vector<int> buf;
+	splitStr(stmp, buf, ',');
+	cout << LIS(buf) << endl;
 }
 
 int LIS(vector<int>& LISTbl)
