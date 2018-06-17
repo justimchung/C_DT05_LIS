@@ -3,9 +3,14 @@
 #include<algorithm>
 #include<sstream>
 #include<string>
+#include<limits>
 using namespace std;
 int LIS(vector<int>& LISTbl);
 void splitStr(string s, vector<int>& buf, char c);
+void getMaxElementAndPos(vector<int>& LISTbl,
+	vector<int>& LISLen, int tNum, int tlen,
+	int tStart,
+	int & num, int & pos);
 int main()
 {
 	string stmp;
@@ -29,6 +34,7 @@ int LIS(vector<int>& LISTbl)
 	}
 
 	int maxlen = *max_element(LISLen.begin(), LISLen.end());
+
 	return maxlen;
 }
 
@@ -40,4 +46,26 @@ void splitStr(string s, vector<int>& buf, char c)
 	while (getline(ss, token, c)) {
 		buf.push_back(stoi(token));
 	}
+}
+
+void getMaxElementAndPos(vector<int>& LISTbl, 
+	vector<int>& LISLen, int tNum, int tlen, 
+	int tStart, 
+	int & num, int & pos)
+{
+	int max = numeric_limits<int>::min();
+	int maxPos;
+	for (int i = tStart; i >= 0; i--)
+	{
+		if (LISLen[i] == tlen && LISTbl[i] < tNum)
+		{
+			if (LISTbl[i] > max)
+			{
+				max = LISTbl[i];
+				maxPos = i;
+			}
+		}
+	}
+	num = max;
+	pos = maxPos;
 }
